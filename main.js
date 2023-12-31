@@ -33,12 +33,11 @@ export default async ({ req, res, log, err }) => {
         feed
             .then(async function (feed) {
                 for (let item of feed.items) {
-                    log(feed.items)
                     const result = await db.listDocuments(DB_ID, COLLECTION_ID_PROJECTS, [
                         Query.equal('url', item.link)
                     ]);
                     if (result.total === 0) {
-                        log(item)
+                        log(item.link);
                         await db.createDocument(DB_ID, COLLECTION_ID_PROJECTS, ID.unique(), {
                             author: item.author,
                             content: item.contentSnippet,
