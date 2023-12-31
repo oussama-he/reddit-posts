@@ -48,7 +48,10 @@ export default async ({ req, res, log, err }) => {
                     }
                 }
             })
-            .catch(err=> log(err))
+            .catch(err=> {
+                console.log(err);
+                return log(err)
+            })
     }
     return res.empty()
 }
