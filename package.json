@@ -1,0 +1,16 @@
+{
+  "name": "mostaql-projects",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-appwrite": "^11.1.0",
+    "rss-parser": "^3.13.0"
+  }
+}
