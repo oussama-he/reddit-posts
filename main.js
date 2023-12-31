@@ -28,7 +28,7 @@ export default async ({ req, res, log, err }) => {
                 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36',
                 'accept': 'text/html,application/xhtml+xml'
             });
-        let feed = parser.parseURL('https://www.reddit.com/r/htmx.json');
+        let feed = parser.parseURL('https://www.reddit.com/r/htmx.xml');
 
         feed
             .then(async function (feed) {
@@ -52,7 +52,7 @@ export default async ({ req, res, log, err }) => {
             })
             .catch(err=> {
                 console.log(err);
-                return log(err)
+                return err(err)
             })
     }
     return res.empty()
