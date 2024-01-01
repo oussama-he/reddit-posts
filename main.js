@@ -4,13 +4,17 @@ import Parser from "rss-parser";
 const PROJECT_ID = process.env.PROJECT_ID;
 const DB_ID = process.env.DB_ID;
 const COLLECTION_ID_PROJECTS = process.env.COLLECTION_ID_PROJECTS;
+const SUBREDDITS = [
+    {name: 'htmx', url: 'https://www.reddit.com/r/htmx.rss'},
+    {name: 'django', url: 'https://www.reddit.com/r/django.rss'},
+]
 
-async function getPosts(parser, subreddit) {
-    const feed = await parser.parseURL(subreddit);
+async function getPosts(parser, url) {
+    const feed = await parser.parseURL(url);
     return feed.items
 }
 
-async function savePosts(db, posts) {
+async function savePosts(db, posts, subreddit) {
     for (let post of posts) {
         const result = await db.listDocuments(DB_ID, COLLECTION_ID_PROJECTS, [
             Query.equal('url', post.link)
@@ -24,7 +28,7 @@ async function savePosts(db, posts) {
                 title: post.title,
                 pubDate: new Date(post.pubDate),
                 url: post.link,
-                subreddit: 'htmx',
+                subreddit: subreddit,
             })
         }
     }
@@ -52,9 +56,12 @@ export default async ({ req, res, log, err }) => {
                 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36',
                 'accept': 'text/html,application/xhtml+xml'
             });
-
-        const posts = await getPosts(parser, 'https://www.reddit.com/r/htmx.rss')
-        await savePosts(db, posts);
+        
+        SUBREDDITS.forEach(async (subreddit) => {
+            const posts = await getPosts(parser, subreddit.url)
+            await savePosts(db, posts, subreddit.name);
+        })
+        
     }
     return res.empty()
 }
