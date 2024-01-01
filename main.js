@@ -57,10 +57,12 @@ export default async ({ req, res, log, err }) => {
             { name: 'htmx', url: 'https://www.reddit.com/r/htmx.rss' },
             { name: 'django', url: 'https://www.reddit.com/r/django.rss' },
         ]
-        SUBREDDITS.forEach(async (subreddit) => {
+            
+        for(let subreddit of SUBREDDITS) {
+            log(subreddit.name);
             const posts = await getPosts(parser, subreddit.url)
             await savePosts(db, posts, subreddit.name);
-        })
+        }
 
     }
     return res.empty()
