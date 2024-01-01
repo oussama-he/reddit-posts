@@ -16,7 +16,6 @@ async function savePosts(db, posts, subreddit) {
             Query.equal('url', post.link)
         ]);
         if (result.total === 0) {
-            log(post.link);
             await db.createDocument(DB_ID, COLLECTION_ID_PROJECTS, ID.unique(), {
                 author: post.author,
                 content: post.contentSnippet,
