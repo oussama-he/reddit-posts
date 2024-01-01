@@ -53,7 +53,7 @@ export default async ({ req, res, log, err }) => {
                 'accept': 'text/html,application/xhtml+xml'
             });
 
-        const posts = getPosts(parser, 'https://www.reddit.com/r/htmx.rss')
+        const posts = await getPosts(parser, 'https://www.reddit.com/r/htmx.rss')
         await savePosts(db, posts);
     }
     return res.empty()
