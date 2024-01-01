@@ -15,6 +15,7 @@ async function getPosts(parser, url) {
 }
 
 async function savePosts(db, posts, subreddit) {
+    log(subreddit);
     for (let post of posts) {
         const result = await db.listDocuments(DB_ID, COLLECTION_ID_PROJECTS, [
             Query.equal('url', post.link)
