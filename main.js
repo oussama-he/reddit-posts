@@ -19,7 +19,7 @@ async function savePosts(db, posts, subreddit) {
             await db.createDocument(DB_ID, COLLECTION_ID_PROJECTS, ID.unique(), {
                 author: post.author,
                 content: post.contentSnippet,
-                contentHTML: post.content,
+                contentHTML: post.content.slice(0, 7000),
                 title: post.title,
                 pubDate: new Date(post.pubDate),
                 url: post.link,
