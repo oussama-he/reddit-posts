@@ -54,6 +54,8 @@ export default async ({ req, res, log, err }) => {
         const SUBREDDITS = [
             { name: 'htmx', url: 'https://www.reddit.com/r/htmx.rss' },
             { name: 'django', url: 'https://www.reddit.com/r/django.rss' },
+            { name: 'python', url: 'https://www.reddit.com/r/Python.rss' },
+            { name: 'learnpython', url: 'https://www.reddit.com/r/learnpython.rss' },
         ]
             
         for(let subreddit of SUBREDDITS) {
