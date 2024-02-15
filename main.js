@@ -20,7 +20,7 @@ async function savePosts(db, posts, subreddit) {
                 author: post.author,
                 content: post.contentSnippet.slice(0, 7000),
                 contentHTML: post.content.slice(0, 7000),
-                title: post.title,
+                title: post.title.slice(0, 255),
                 pubDate: new Date(post.pubDate),
                 url: post.link,
                 subreddit: subreddit,
